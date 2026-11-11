@@ -1,0 +1,12 @@
+openai
+python-dotenv
+fastapi
+uvicorn
+pydantic
+numpy
+transformers
+sentence-transformers
+langchain-core>=1.7,<2
+langchain-openai>=1.7,<2
+langgraph>=1.2,<2
+langgraph-checkpoint-sqlite>=3.1,<4

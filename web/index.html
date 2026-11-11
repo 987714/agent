@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>差旅报销工作台</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <script type="module" src="/assets/workbench.js"></script>
+</head>
+<body>
+  <!-- 双栏工作台：左边处理问题，右边核对出处与文件；移动端按阅读顺序排列。 -->
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 5h12l5 5v17H8z M20 5v6h5 M12 16h9 M12 21h6"/></svg>
+        差旅报销工作台
+      </div>
+      <div class="top-actions"><span class="local">本地教学演示</span><button id="new-chat" type="button">新建会话</button></div>
+    </div>
+  </header>
+  <main class="workbench">
+    <section class="conversation" aria-labelledby="title">
+      <h1 id="title">这趟差旅，怎么算？</h1>
+      <p class="intro">输入城市、住宿天数和费用。助手会查本地制度、计算差额，并在回答里注明依据。</p>
+      <div class="examples" aria-label="示例问题">
+        <button type="button" data-example="我一个人去上海出差，住了一晚，房费 730 元。根据本地差旅制度，上限是多少？请用计算工具算出超出多少，并注明出处。">上海 · 730 元住一晚 <span aria-hidden="true">↗</span></button>
+        <button type="button" data-example="根据本地差旅制度，北京住宿每人每晚最多报销多少？请注明出处。">北京 · 查住宿上限 <span aria-hidden="true">↗</span></button>
+      </div>
+      <div id="messages" role="log" aria-label="对话"></div>
+      <form id="composer">
+        <label for="question">差旅问题</label>
+        <textarea id="question" rows="3" required placeholder="例如：上海出差住一晚，房费 730 元，超出上限多少？"></textarea>
+        <p id="error" role="alert" hidden></p>
+        <div class="composer-actions">
+          <p id="status" role="status">首次查制度可能需要加载本地模型。</p>
+          <button id="send" class="primary" type="submit">发送问题</button>
+        </div>
+      </form>
+    </section>
+    <aside class="review" aria-label="核对与保存">
+      <section class="sources">
+        <h2>制度依据</h2>
+        <p id="source-note">回答提到的制度文件会列在这里。</p>
+        <ul id="source-list" hidden></ul>
+      </section>
+      <section class="save">
+        <h2>保存确认</h2>
+        <p id="save-note">想保留结果？先让助手生成一份文件。它会暂停，等你核对后再写入。</p>
+        <button id="prepare" type="button" hidden>请求保存这份回答</button>
+        <div id="preview" hidden>
+          <h3 id="file-name" tabindex="-1"></h3>
+          <pre id="file-content" tabindex="0" aria-label="待保存内容"></pre>
+          <p id="confirm-error" role="alert" hidden></p>
+          <div class="decision">
+            <button id="reject" type="button">拒绝</button>
+            <button id="approve" type="button" class="primary">同意保存</button>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </main>
+  <footer>依据本地教学制度，不作为真实报销凭证。 <a href="/docs">接口文档</a></footer>
+</body>
+</html>
